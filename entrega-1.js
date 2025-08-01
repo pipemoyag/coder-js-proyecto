@@ -77,7 +77,7 @@ function iniciarSimulador() {
         prompt(
           `${resumenCatalogo(
             catalogoCR
-          )}\nIndique el N° del producto que desea agregar (0 para terminar)`
+          )}\nIndique el N° del producto que desea agregar (Escriba 0 o presione "Cancelar" para terminar)`
         )
       );
       // validacion de que dato de entrada sea un numero entero
