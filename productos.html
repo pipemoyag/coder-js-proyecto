@@ -2,14 +2,14 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Entrega 2 JS - Cat Republic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cat Republic PetShop</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
   </head>
-  <body class="bg-light text-dark">
+  <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
       <div class="container-fluid">
@@ -43,31 +43,25 @@
       </div>
     </nav>
 
-    <div class="container mt-5">
-      <h1 class="text-center mb-4">JavaScript Entrega 2 - Felipe Moya</h1>
-
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h2 class="card-title">Simulador de tienda online: Cat Republic</h2>
-          <p class="card-text mt-3">
-            Este simulador representa una tienda online especializada en
-            productos para gatos. Los usuarios pueden explorar un catálogo con
-            juguetes, alimentos y accesorios, y agregar los productos deseados a
-            su carrito de forma interactiva.
-          </p>
-          <p class="card-text">
-            El carrito se actualiza en tiempo real mostrando la cantidad y
-            subtotal de cada producto, permite modificar cantidades o eliminar
-            artículos, y guarda automáticamente los datos en
-            <strong>localStorage</strong> para que la información persista al
-            navegar entre páginas. Al finalizar la compra, se muestra un mensaje
-            de confirmación y el carrito se vacía.
-          </p>
-        </div>
+    <!-- Contenido -->
+    <div class="container mt-4">
+      <h1 class="mb-4">Productos</h1>
+      <div class="row" id="productos">
+        <!-- Template para tarjetas de productos que se generarán con JS -->
+        <!-- <div class="col-md-4 mb-3">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Ejemplo Producto</h5>
+              <p class="card-text">$9.990</p>
+              <button class="btn btn-primary">Agregar al carrito</button>
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
+    <script src="productos.js"></script>
   </body>
 </html>
