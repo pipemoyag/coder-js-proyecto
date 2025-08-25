@@ -84,11 +84,8 @@ class Carro {
   }
 
   actualizarCantidad(id, cantidad) {
-    if (cantidad <= 0) {
-      this.eliminarDelCarro(id);
-    } else {
-      this.items[id] = cantidad;
-    }
+    // siempre llegará un valor numerico >= 1
+    this.items[id] = cantidad;
   }
 
   obtenerCantidadItems() {
@@ -102,11 +99,13 @@ class Carro {
 
 // definimos funcion para actualizar la cantidad de elementos en el carro que se ve en el HTML
 const actualizarElementosCarro = (carro) => {
-  cantidadHTML = document.getElementById("cantidad-productos");
-  cantidadHTML.textContent = `(${carro.obtenerCantidadItems()})`;
+  let cantidadMobile = document.getElementById("cantidad-productos-mobile");
+  let cantidadDesktop = document.getElementById("cantidad-productos-desktop");
+  cantidadMobile.textContent = `${carro.obtenerCantidadItems()}`;
+  cantidadDesktop.textContent = `${carro.obtenerCantidadItems()}`;
 };
 
-// definimos una funcion para guardar el carrito en el localStorage
+// definimos una funcion para guardar el atributo carrito.items (objeto) en el localStorage
 const guardarEnStorage = (carro) => {
   localStorage.setItem("carritoCR", JSON.stringify(carro.items));
   actualizarElementosCarro(carro);

@@ -31,7 +31,8 @@ const renderizarCarrito = () => {
             </td>
             <td>$${productoCarro.precio.toLocaleString("es-CL")}</td>
             <td>$${subtotal.toLocaleString("es-CL")}</td>
-            <td><button onclick="eliminarProducto(${id})" class="btn btn-sm btn-danger">Eliminar</button></td>
+            <td><button onclick="eliminarProducto(${id})" class="btn btn-sm btn-danger">
+                <i class="bi bi-trash"></i></button></td>
         </tr>
       `;
     }
@@ -42,7 +43,7 @@ const renderizarCarrito = () => {
             <td>-</td>
             <td>-</td>
             <td>-</td>
-            <td>-</td>
+            <td></td>
         </tr>`;
   }
   valorTotalHTML.textContent = `$${valorTotal.toLocaleString("es-CL")}`;
@@ -56,6 +57,10 @@ const eliminarProducto = (id) => {
 };
 
 const actualizarCantidadCarro = (id, nuevaCantidad) => {
+  // si el valor ingresado es string o negativo, dejará la cantidad en 1
+  if (isNaN(nuevaCantidad) || nuevaCantidad <= 0) {
+    nuevaCantidad = 1;
+  }
   carrito.actualizarCantidad(id, nuevaCantidad);
   guardarEnStorage(carrito);
   renderizarCarrito();

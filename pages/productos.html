@@ -2,8 +2,8 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Entrega 2 JS - Cat Republic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productos - Cat Republic</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,11 +14,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
     />
   </head>
-  <body class="bg-light text-dark">
+  <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
       <div class="container-fluid">
         <!-- Logo -->
-        <a class="navbar-brand" href="./index.html">Cat Republic</a>
+        <a class="navbar-brand" href="../index.html">Cat Republic</a>
 
         <!-- Mobile: hamburguesa + carrito -->
         <div class="d-flex d-sm-none ms-auto align-items-center">
@@ -37,7 +37,7 @@
 
           <!-- Carrito vista mobile -->
           <a
-            href="./pages/carrito.html"
+            href="./carrito.html"
             class="btn btn-outline-light position-relative"
           >
             <i class="bi bi-cart"></i>
@@ -55,16 +55,16 @@
         >
           <ul class="navbar-nav text-start text-sm-end">
             <li class="nav-item">
-              <a class="nav-link" href="./index.html">Inicio</a>
+              <a class="nav-link" href="../index.html">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./pages/productos.html">Productos</a>
+              <a class="nav-link" href="./productos.html">Productos</a>
             </li>
 
             <!-- Carrito vista desktop -->
             <li class="nav-item ms-3 d-none d-sm-block">
               <a
-                href="./pages/carrito.html"
+                href="./carrito.html"
                 class="btn btn-outline-light position-relative"
               >
                 <i class="bi bi-cart"></i>
@@ -79,32 +79,58 @@
       </div>
     </nav>
 
-    <div class="container mt-5">
-      <h1 class="text-center mb-4">JavaScript Entrega 2 - Felipe Moya</h1>
-
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h2 class="card-title">Simulador de tienda online: Cat Republic</h2>
-          <p class="card-text mt-3">
-            Este simulador representa una tienda online especializada en
-            productos para gatos. Al ingresar, el usuario puede explorar un
-            catálogo de productos organizado por categorías como alimentos,
-            snacks, juguetes y accesorios. Cada producto muestra su nombre,
-            precio y la cantidad que ya se encuentra en el carrito.
-          </p>
-          <p class="card-text">
-            Los usuarios pueden buscar productos por nombre, ordenar el catálogo
-            por precio, nombre o categoría, y agregar artículos al carrito con
-            un botón interactivo. El carrito se mantiene entre sesiones usando
-            almacenamiento local (localStorage) y permite actualizar cantidades,
-            eliminar productos o vaciarlo completamente. Además, siempre se
-            muestra el total de productos en el carrito.
-          </p>
+    <!-- Contenido -->
+    <div class="container mt-4">
+      <!-- Buscador y orden productos -->
+      <div class="row align-items-center mb-3">
+        <div class="col-md-6 col-12 mb-2 mb-md-0">
+          <input
+            type="text"
+            id="buscador-productos"
+            class="form-control"
+            placeholder="Buscar productos por nombre"
+          />
         </div>
+        <div class="col-md-6 col-12 text-md-end">
+          <label for="ordenar-productos" class="form-label me-2"
+            >Ordenar por:</label
+          >
+          <select id="ordenar-productos" class="form-select d-inline w-auto">
+            <option value="relevancia">Relevancia</option>
+            <option value="categoria">Categoría</option>
+            <option value="nombre">Nombre</option>
+            <option value="precio">Precio</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Catalogo Productos -->
+      <h1 class="mb-4">Productos</h1>
+      <div class="row" id="productos">
+        <!-- Template para tarjetas de productos que se generarán con JS -->
+        <!-- <div class="col-md-4 mb-3">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body position-relative">
+              <h5 class="card-title">Pelota Automática</h5>
+              <p class="card-text">$5.000</p>
+              <button class="btn btn-primary position-relative">
+                Agregar
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  id="cantidad-producto-1"
+                  style="display: none"
+                >
+                  0
+                </span>
+              </button>
+            </div>
+          </div>
+        </div> -->
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./script/app.js"></script>
+    <script src="../script/app.js"></script>
+    <script src="../script/productos.js"></script>
   </body>
 </html>
