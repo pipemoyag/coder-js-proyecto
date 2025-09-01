@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "nombre": "Alimento Acana",
+    "precio": 22990,
+    "categoria": "Comida"
+  },
+  {
+    "id": 2,
+    "nombre": "Alimento Bravery",
+    "precio": 19990,
+    "categoria": "Comida"
+  },
+  {
+    "id": 3,
+    "nombre": "Alimento Leonardo",
+    "precio": 24990,
+    "categoria": "Comida"
+  },
+  {
+    "id": 4,
+    "nombre": "Churu 4 unidades",
+    "precio": 2900,
+    "categoria": "Snacks"
+  },
+  {
+    "id": 5,
+    "nombre": "Leonardo Latas 200g",
+    "precio": 3000,
+    "categoria": "Snacks"
+  },
+  {
+    "id": 6,
+    "nombre": "Catit Nuna insecto",
+    "precio": 4490,
+    "categoria": "Snacks"
+  },
+  {
+    "id": 7,
+    "nombre": "Pelota Automática",
+    "precio": 5000,
+    "categoria": "Juguete"
+  },
+  {
+    "id": 8,
+    "nombre": "Raton Peludo",
+    "precio": 1500,
+    "categoria": "Juguete"
+  },
+  {
+    "id": 9,
+    "nombre": "Catit Treat Puzzle",
+    "precio": 20990,
+    "categoria": "Juguete"
+  },
+  {
+    "id": 10,
+    "nombre": "Antiparasitario",
+    "precio": 14000,
+    "categoria": "Farmacia"
+  }
+]
