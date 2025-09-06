@@ -80,9 +80,29 @@ const actualizarCantidadCarro = (id, nuevaCantidad) => {
 };
 
 const vaciarCarro = () => {
-  carrito.vaciarCarro();
-  guardarEnStorage(carrito);
-  renderizarCarrito();
+  if (carrito.obtenerCantidadItems()) {
+    Swal.fire({
+      title: "¿Vaciar el carrito?",
+      text: "Esta acción no se puede deshacer.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, vaciar",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        carrito.vaciarCarro();
+        guardarEnStorage(carrito);
+        renderizarCarrito();
+        Swal.fire("Carrito vacío", "", "success");
+      }
+    });
+  } else {
+    Swal.fire({
+      title: "Su carrito está vacío",
+      icon: "info",
+      confirmButtonText: "Aceptar",
+    });
+  }
 };
 
 const ejecucionPago = () => {
@@ -92,7 +112,9 @@ const ejecucionPago = () => {
         ¡Gracias por comprar en <strong>Cat Republic</strong>!
         </div>
         `;
-    vaciarCarro();
+    carrito.vaciarCarro();
+    guardarEnStorage(carrito);
+    renderizarCarrito();
   } else {
     mensajeCompra.innerHTML = `
         <div class="alert alert-danger text-center">

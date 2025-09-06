@@ -52,10 +52,23 @@ const renderizarProductos = (productos = catalogo) => {
   contenedor.innerHTML = htmlProductos;
 };
 
+const ToastAgregarProducto = () => {
+  Toastify({
+    text: "Producto agregado exitosamente",
+    duration: 2000,
+    close: true,
+    style: { marginTop: "50px" },
+    onClick: () => {
+      window.location.href = "./carrito.html";
+    },
+  }).showToast();
+};
+
 const agregarProducto = (id) => {
   carrito.agregarAlCarro(id);
   guardarEnStorage(carrito);
   renderizarProductos(actualizarProductos());
+  ToastAgregarProducto();
 };
 
 // Actualizar productos segun Buscador y Orden seleccionado

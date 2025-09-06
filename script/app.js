@@ -1,11 +1,11 @@
 // Los datos se simulan como si fueran traídos de una API, pero por ahora se traen desde un archivo .json local
 const cargarCatalogoDesdeBD = async () => {
-  // como es una funcion async, el return será una Promise
+  // OJO: como es una funcion async, el return será una Promise, NO directamente los datos
   try {
-    const respuesta = await fetch("../data/catalogo.json");
-    if (!respuesta.ok) throw new Error("Error en la respuesta");
-    const datos = await respuesta.json();
-    return datos;
+    const respuesta = await axios.get("../data/catalogo.json", {
+      headers: { "Cache-Control": "no-cache" }, // para que el navegador siempre cargue la version actualizada
+    });
+    return respuesta.data;
   } catch (error) {
     console.error("Error al cargar catálogo:", error);
     return null; // null para indicar error
