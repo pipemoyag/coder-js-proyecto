@@ -1,5 +1,18 @@
-const catalogo = cargarCatalogoDesdeBD();
-const carrito = obtenerCarrito();
+let botonVaciar = document.getElementById("boton-vaciar");
+let mensajeCompra = document.getElementById("mensaje-compra");
+let botonPagar = document.getElementById("boton-pagar");
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Se intenta cargar catalogo. Si no se carga, mostrará un error en la pagina
+  catalogo = await cargarCatalogoDesdeBD();
+  if (!catalogo) {
+    document.querySelector("main").innerHTML = mensajeErrorBD;
+    return;
+  }
+  renderizarCarrito();
+  botonVaciar.addEventListener("click", vaciarCarro);
+  botonPagar.addEventListener("click", ejecucionPago);
+});
 
 const renderizarCarrito = () => {
   let filasCarrito = document.getElementById("carrito");
@@ -72,12 +85,7 @@ const vaciarCarro = () => {
   renderizarCarrito();
 };
 
-let botonVaciar = document.getElementById("boton-vaciar");
-botonVaciar.addEventListener("click", vaciarCarro);
-
-let mensajeCompra = document.getElementById("mensaje-compra");
-let botonPagar = document.getElementById("boton-pagar");
-botonPagar.addEventListener("click", () => {
+const ejecucionPago = () => {
   if (carrito.obtenerCantidadItems()) {
     mensajeCompra.innerHTML = `
         <div class="alert alert-success text-center">
@@ -92,6 +100,4 @@ botonPagar.addEventListener("click", () => {
         </div>
         `;
   }
-});
-
-renderizarCarrito();
+};

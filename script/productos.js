@@ -1,5 +1,17 @@
-const catalogo = cargarCatalogoDesdeBD();
-const carrito = obtenerCarrito();
+const inputBuscador = document.getElementById("buscador-productos");
+const selectOrdenar = document.getElementById("ordenar-productos");
+
+document.addEventListener("DOMContentLoaded", async () => {
+  // Se intenta cargar catalogo. Si no se carga, mostrará un error en la pagina
+  catalogo = await cargarCatalogoDesdeBD();
+  if (!catalogo) {
+    document.querySelector("main").innerHTML = mensajeErrorBD;
+    return;
+  }
+  renderizarProductos();
+  inputBuscador.addEventListener("input", actualizarProductos);
+  selectOrdenar.addEventListener("change", actualizarProductos);
+});
 
 const renderizarProductos = (productos = catalogo) => {
   let contenedor = document.getElementById("productos");
@@ -47,9 +59,6 @@ const agregarProducto = (id) => {
 };
 
 // Actualizar productos segun Buscador y Orden seleccionado
-const inputBuscador = document.getElementById("buscador-productos");
-const selectOrdenar = document.getElementById("ordenar-productos");
-
 const actualizarProductos = () => {
   const textoBusqueda = inputBuscador.value.toLowerCase();
   const criterioOrden = selectOrdenar.value;
@@ -74,7 +83,3 @@ const actualizarProductos = () => {
   renderizarProductos(catalogoFiltrado);
   return catalogoFiltrado;
 };
-
-renderizarProductos();
-inputBuscador.addEventListener("input", actualizarProductos);
-selectOrdenar.addEventListener("change", actualizarProductos);
