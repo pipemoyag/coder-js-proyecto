@@ -9,6 +9,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector("main").innerHTML = mensajeErrorBD;
     return;
   }
+
+  const filasCarrito = document.getElementById("carrito");
+  // Delegacion para clicks eliminar productos del carrito
+  // se usa "closest" para que si se clickea el ícono de basura, aún así retorne el botón padre
+  filasCarrito.addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn-eliminar");
+    if (btn) {
+      const id = Number(btn.dataset.id);
+      eliminarProducto(id);
+    }
+  });
+  // Delegacion para cambios en la cantidad de un producto en el carrito
+  // se usa "matches" ..ASDAHS
+  filasCarrito.addEventListener("change", (e) => {
+    if (e.target.matches(".input-cantidad")) {
+      const id = Number(e.target.dataset.id);
+      let valor = Number(e.target.value);
+      actualizarCantidadCarro(id, valor);
+    }
+  });
+
   renderizarCarrito();
   botonVaciar.addEventListener("click", vaciarCarro);
   botonPagar.addEventListener("click", ejecucionPago);
@@ -37,14 +58,14 @@ const renderizarCarrito = () => {
             <td>
                 <input 
                 type="number" 
-                class="form-control form-control-sm" 
+                class="form-control form-control-sm input-cantidad" 
                 value="${cantidadProducto}" 
                 min="1" 
-                onchange="actualizarCantidadCarro(${id}, Number(this.value))">
+                data-id="${id}">
             </td>
             <td>$${productoCarro.precio.toLocaleString("es-CL")}</td>
             <td>$${subtotal.toLocaleString("es-CL")}</td>
-            <td><button onclick="eliminarProducto(${id})" class="btn btn-sm btn-danger">
+            <td><button class="btn btn-sm btn-danger btn-eliminar" data-id="${id}">
                 <i class="bi bi-trash"></i></button></td>
         </tr>
       `;

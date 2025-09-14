@@ -1,5 +1,5 @@
 const container = document.getElementById("navbar-container");
-container.innerHTML = `
+container.outerHTML = `
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
           <!-- Logo -->

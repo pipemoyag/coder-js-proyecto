@@ -8,6 +8,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector("main").innerHTML = mensajeErrorBD;
     return;
   }
+
+  const contenedor = document.getElementById("productos");
+  // Delegacion para clicks agregar productos al carrito
+  // se usa "closest" para que si se clickea el span, aún así retorne el botón padre
+  filasCarrito.addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn-agregar");
+    if (btn) {
+      const id = Number(btn.dataset.id);
+      agregarProducto(id);
+    }
+  });
+
   renderizarProductos();
   inputBuscador.addEventListener("input", actualizarProductos);
   selectOrdenar.addEventListener("change", actualizarProductos);
@@ -34,9 +46,7 @@ const renderizarProductos = (productos = catalogo) => {
         <div class="card-body position-relative">
             <h5 class="card-title">${producto.nombre}</h5>
             <p class="card-text">$${producto.precio.toLocaleString("es-CL")}</p>
-            <button onclick="agregarProducto(${
-              producto.id
-            })" class="btn btn-primary position-relative">Agregar al carrito
+            <button class="btn btn-primary position-relative btn-agregar" data-id="${id}">Agregar al carrito
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cantidad-producto-${
               producto.id
             }" style="display: ${displayBadgeProducto};">
