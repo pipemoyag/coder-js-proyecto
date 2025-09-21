@@ -34,7 +34,7 @@ class Carro {
   }
 
   actualizarCantidad(id, cantidad) {
-    // siempre llegará un valor numerico >= 1
+    // siempre llegará un entero entre 1 y el stock de ese producto
     this.items[id] = cantidad;
   }
 
@@ -77,8 +77,20 @@ const obtenerCarrito = () => {
   return carrito;
 };
 
+const toastProductoAgotado = () => {
+  Toastify({
+    text: "No tenemos más de este producto",
+    duration: 2000,
+    close: true,
+    style: {
+      marginTop: "50px",
+      background: "linear-gradient(to right, #ff5f6d, #ff0000)",
+    },
+  }).showToast();
+};
+
 // Inicializamos variables, para que en caso de error al conectar con BD no arrojen error las funciones que llaman estas variables
-// Esto lo hago porque estaba trabajando con estas variables definidas de forma global, y asi evito por ahora modificar tanto el codigo
+// Esto lo hago porque estaba trabajando con estas variables definidas de forma global, y asi evito modificar tanto el codigo
 let catalogo = [];
 let carrito = obtenerCarrito();
 

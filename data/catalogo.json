@@ -3,60 +3,70 @@
     "id": 1,
     "nombre": "Alimento Acana",
     "precio": 22990,
-    "categoria": "Comida"
+    "categoria": "Comida",
+    "stock": 1
   },
   {
     "id": 2,
     "nombre": "Alimento Bravery",
     "precio": 19990,
-    "categoria": "Comida"
+    "categoria": "Comida",
+    "stock": 2
   },
   {
     "id": 3,
     "nombre": "Alimento Leonardo",
     "precio": 24990,
-    "categoria": "Comida"
+    "categoria": "Comida",
+    "stock": 2
   },
   {
     "id": 4,
     "nombre": "Churu 4 unidades",
     "precio": 2900,
-    "categoria": "Snacks"
+    "categoria": "Snacks",
+    "stock": 4
   },
   {
     "id": 5,
     "nombre": "Leonardo Latas 200g",
     "precio": 3000,
-    "categoria": "Snacks"
+    "categoria": "Snacks",
+    "stock": 6
   },
   {
     "id": 6,
     "nombre": "Catit Nuna insecto",
     "precio": 4490,
-    "categoria": "Snacks"
+    "categoria": "Snacks",
+    "stock": 3
   },
   {
     "id": 7,
     "nombre": "Pelota Automática",
     "precio": 5000,
-    "categoria": "Juguete"
+    "categoria": "Juguete",
+    "stock": 5
   },
   {
     "id": 8,
     "nombre": "Raton Peludo",
     "precio": 1500,
-    "categoria": "Juguete"
+    "categoria": "Juguete",
+    "stock": 3
   },
   {
     "id": 9,
     "nombre": "Catit Treat Puzzle",
     "precio": 20990,
-    "categoria": "Juguete"
+    "categoria": "Juguete",
+    "stock": 1
   },
   {
     "id": 10,
     "nombre": "Antiparasitario",
     "precio": 14000,
-    "categoria": "Farmacia"
+    "categoria": "Farmacia",
+    "stock": 2
   }
 ]

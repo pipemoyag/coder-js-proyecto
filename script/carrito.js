@@ -1,5 +1,4 @@
 let botonVaciar = document.getElementById("boton-vaciar");
-let mensajeCompra = document.getElementById("mensaje-compra");
 let botonPagar = document.getElementById("boton-pagar");
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -9,6 +8,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector("main").innerHTML = mensajeErrorBD;
     return;
   }
+
+  const filasCarrito = document.getElementById("carrito");
+  // Delegacion para clicks eliminar productos del carrito
+  // se usa "closest" para que si se clickea el ícono de basura, aún así retorne el botón padre
+  filasCarrito.addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn-eliminar");
+    if (btn) {
+      const id = Number(btn.dataset.id);
+      eliminarProducto(id);
+    }
+  });
+  // Delegacion para cambios en la cantidad de un producto en el carrito
+  // se usa "matches" para detectar el input
+  filasCarrito.addEventListener("change", (e) => {
+    if (e.target.matches(".input-cantidad")) {
+      const id = Number(e.target.dataset.id);
+      let valor = Number(e.target.value); // si el input ingresado fuera string, arrojara NaN
+      actualizarCantidadCarro(id, valor);
+    }
+  });
+
   renderizarCarrito();
   botonVaciar.addEventListener("click", vaciarCarro);
   botonPagar.addEventListener("click", ejecucionPago);
@@ -37,14 +57,15 @@ const renderizarCarrito = () => {
             <td>
                 <input 
                 type="number" 
-                class="form-control form-control-sm" 
+                class="form-control form-control-sm input-cantidad" 
                 value="${cantidadProducto}" 
                 min="1" 
-                onchange="actualizarCantidadCarro(${id}, Number(this.value))">
+                max="${productoCarro.stock}"
+                data-id="${id}">
             </td>
             <td>$${productoCarro.precio.toLocaleString("es-CL")}</td>
             <td>$${subtotal.toLocaleString("es-CL")}</td>
-            <td><button onclick="eliminarProducto(${id})" class="btn btn-sm btn-danger">
+            <td><button class="btn btn-sm btn-danger btn-eliminar" data-id="${id}">
                 <i class="bi bi-trash"></i></button></td>
         </tr>
       `;
@@ -70,13 +91,30 @@ const eliminarProducto = (id) => {
 };
 
 const actualizarCantidadCarro = (id, nuevaCantidad) => {
-  // si el valor ingresado es string o negativo, dejará la cantidad en 1
-  if (isNaN(nuevaCantidad) || nuevaCantidad <= 0) {
+  let productoCarro = catalogo.find((producto) => producto.id === id);
+  // si el valor ingresado es string, o negativo, o float => dejará la cantidad en 1
+  // si el valor ingresado es mayor al stock del producto => dejará cantidad en stock, y tirará una notificacion
+  if (
+    isNaN(nuevaCantidad) ||
+    nuevaCantidad <= 0 ||
+    !Number.isInteger(nuevaCantidad)
+  ) {
     nuevaCantidad = 1;
+  } else if (nuevaCantidad > productoCarro.stock) {
+    nuevaCantidad = productoCarro.stock;
+    toastProductoAgotado();
   }
   carrito.actualizarCantidad(id, nuevaCantidad);
   guardarEnStorage(carrito);
   renderizarCarrito();
+};
+
+const modalCarroVacio = () => {
+  Swal.fire({
+    title: "Su carrito está vacío",
+    icon: "info",
+    confirmButtonText: "Aceptar",
+  });
 };
 
 const vaciarCarro = () => {
@@ -97,29 +135,50 @@ const vaciarCarro = () => {
       }
     });
   } else {
-    Swal.fire({
-      title: "Su carrito está vacío",
-      icon: "info",
-      confirmButtonText: "Aceptar",
-    });
+    modalCarroVacio();
   }
 };
 
 const ejecucionPago = () => {
   if (carrito.obtenerCantidadItems()) {
-    mensajeCompra.innerHTML = `
-        <div class="alert alert-success text-center">
-        ¡Gracias por comprar en <strong>Cat Republic</strong>!
-        </div>
-        `;
-    carrito.vaciarCarro();
-    guardarEnStorage(carrito);
-    renderizarCarrito();
+    Swal.fire({
+      title: "Completa tus datos",
+      html: `
+    <input id="nombre" class="swal2-input" placeholder="Nombre del comprador">
+    <select id="pago" class="swal2-select">
+      <option value="" disabled selected>Seleccione medio de pago</option>
+      <option value="Efectivo">Efectivo</option>
+      <option value="Tarjeta">Tarjeta</option>
+    </select>
+  `,
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: "Confirmar",
+      cancelButtonText: "Cancelar",
+      preConfirm: () => {
+        const nombre = document.getElementById("nombre").value;
+        const pago = document.getElementById("pago").value;
+        if (!nombre || !pago) {
+          Swal.showValidationMessage(
+            "Debes ingresar tu nombre y elegir medio de pago"
+          );
+          return false;
+        }
+        return { nombre, pago };
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "¡Gracias por comprar en CatRepublic!",
+          `Gracias ${result.value.nombre}, pagaste con ${result.value.pago}.`,
+          "success"
+        );
+        carrito.vaciarCarro();
+        guardarEnStorage(carrito);
+        renderizarCarrito();
+      }
+    });
   } else {
-    mensajeCompra.innerHTML = `
-        <div class="alert alert-danger text-center">
-        Tu carrito está vacío 🛒
-        </div>
-        `;
+    modalCarroVacio();
   }
 };
