@@ -33,15 +33,32 @@
             productos para gatos. Al ingresar, el usuario puede explorar un
             catálogo de productos organizado por categorías como alimentos,
             snacks, juguetes y accesorios. Cada producto muestra su nombre,
-            precio y la cantidad que ya se encuentra en el carrito.
+            precio, y la cantidad que ya se encuentra en el carrito.
           </p>
           <p class="card-text">
-            Los usuarios pueden buscar productos por nombre, ordenar el catálogo
-            por precio, nombre o categoría, y agregar artículos al carrito con
-            un botón interactivo. El carrito se mantiene entre sesiones usando
-            almacenamiento local (localStorage) y permite actualizar cantidades,
-            eliminar productos o vaciarlo completamente. Además, siempre se
-            muestra el total de productos en el carrito.
+            El catálogo ahora se carga dinámicamente desde un archivo
+            <code>JSON</code>, utilizando la librería <strong>Axios</strong>.
+            Para mejorar la experiencia del usuario se incorporaron
+            notificaciones con <strong>Toastify</strong> y alertas interactivas
+            con <strong>SweetAlert2</strong>.
+          </p>
+          <p class="card-text">
+            Se implementó lógica de <strong>gestión de stock</strong>, que
+            valida las cantidades tanto en la página de productos como en el
+            carrito, evitando agregar más unidades que las disponibles.
+          </p>
+          <p class="card-text">
+            Además, se reemplazaron los antiguos manejadores
+            <code>onclick</code> y <code>onchange</code> por
+            <strong>delegación de eventos</strong>, lo que permite un código más
+            limpio, escalable y fácil de mantener.
+          </p>
+          <p class="card-text">
+            El carrito se mantiene entre sesiones gracias a
+            <code>localStorage</code>
+            y permite actualizar cantidades, eliminar productos o vaciarlo
+            completamente. Al momento de pagar, el usuario puede ingresar sus
+            datos y confirmar la compra mediante un formulario interactivo.
           </p>
         </div>
       </div>

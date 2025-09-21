@@ -12,11 +12,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const contenedor = document.getElementById("productos");
   // Delegacion para clicks agregar productos al carrito
   // se usa "closest" para que si se clickea el span, aún así retorne el botón padre
-  filasCarrito.addEventListener("click", (e) => {
+  contenedor.addEventListener("click", (e) => {
     const btn = e.target.closest(".btn-agregar");
     if (btn) {
       const id = Number(btn.dataset.id);
-      agregarProducto(id);
+      let productoCarro = catalogo.find((producto) => producto.id === id);
+      agregarProducto(id, productoCarro.stock);
     }
   });
 
@@ -46,10 +47,10 @@ const renderizarProductos = (productos = catalogo) => {
         <div class="card-body position-relative">
             <h5 class="card-title">${producto.nombre}</h5>
             <p class="card-text">$${producto.precio.toLocaleString("es-CL")}</p>
-            <button class="btn btn-primary position-relative btn-agregar" data-id="${id}">Agregar al carrito
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cantidad-producto-${
+            <button class="btn btn-primary position-relative btn-agregar" data-id="${
               producto.id
-            }" style="display: ${displayBadgeProducto};">
+            }">Agregar al carrito
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: ${displayBadgeProducto};">
             ${cantidadProductoEnCarro}
             </span>
             </button>
@@ -62,7 +63,7 @@ const renderizarProductos = (productos = catalogo) => {
   contenedor.innerHTML = htmlProductos;
 };
 
-const ToastAgregarProducto = () => {
+const toastAgregarProducto = () => {
   Toastify({
     text: "Producto agregado exitosamente",
     duration: 2000,
@@ -74,11 +75,15 @@ const ToastAgregarProducto = () => {
   }).showToast();
 };
 
-const agregarProducto = (id) => {
-  carrito.agregarAlCarro(id);
-  guardarEnStorage(carrito);
-  renderizarProductos(actualizarProductos());
-  ToastAgregarProducto();
+const agregarProducto = (id, stock) => {
+  if ((carrito.items[id] || 0) < stock) {
+    carrito.agregarAlCarro(id);
+    guardarEnStorage(carrito);
+    actualizarProductos();
+    toastAgregarProducto();
+  } else {
+    toastProductoAgotado();
+  }
 };
 
 // Actualizar productos segun Buscador y Orden seleccionado
